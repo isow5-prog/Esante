@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenue sur {{ app_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            padding: 20px;
+            border: 1px solid #dddddd;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 15px 0;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777777;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Bienvenue sur {{ app_name }}</h1>
+    </div>
+    
+    <div class="content">
+        <p>Bonjour {{ user.first_name }},</p>
+        
+        <p>Votre compte a été créé avec succès sur la plateforme <strong>{{ app_name }}</strong>.</p>
+        
+        <h3>Vos informations de connexion :</h3>
+        <ul>
+            <li><strong>Identifiant :</strong> {{ user.badge_id|default:"Non défini" }}</li>
+            <li><strong>Rôle :</strong> {{ user.get_role_display }}</li>
+            {% if user.health_center %}
+            <li><strong>Centre de santé :</strong> {{ user.health_center.name }}</li>
+            {% endif %}
+        </ul>
+        
+        <p>Pour commencer à utiliser la plateforme, veuillez vous connecter avec vos identifiants.</p>
+        
+        <div style="text-align: center;">
+            <a href="{{ site_url }}" class="button">Accéder à la plateforme</a>
+        </div>
+        
+        <p>Si vous n'êtes pas à l'origine de cette inscription, veuillez contacter immédiatement l'administrateur du système.</p>
+        
+        <p>Cordialement,<br>L'équipe {{ app_name }}</p>
+    </div>
+    
+    <div class="footer">
+        <p>Ceci est un message automatique, merci de ne pas y répondre.</p>
+        <p>&copy; {% now "Y" %} {{ app_name }}. Tous droits réservés.</p>
+    </div>
+</body>
+</html>
